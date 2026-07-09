@@ -125,40 +125,6 @@ RATE_LIMIT_ALGORITHM = "sliding"
 
 The middleware remains unchanged because the appropriate implementation is selected through a factory.
 
----
-# Architecture Diagram
-```mermaid
-flowchart LR
-
-    Client["Client (Browser / Postman)"]
-
-    subgraph Django
-        MW["RateLimiterMiddleware"]
-        Factory["RateLimiterFactory"]
-        Fixed["FixedWindowRateLimiter"]
-        Sliding["SlidingWindowRateLimiter"]
-        View["DRF View"]
-    end
-
-    subgraph Redis
-        Redis[(Redis)]
-    end
-
-    Client --> MW
-
-    MW --> Factory
-
-    Factory --> Fixed
-    Factory --> Sliding
-
-    Fixed --> Redis
-    Sliding --> Redis
-
-    MW --> View
-
-    View --> Client
-```
-
 # Running the Project
 
 ## Clone the repository
